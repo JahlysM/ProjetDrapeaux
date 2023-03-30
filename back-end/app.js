@@ -1,36 +1,45 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-
-const app = express()
-
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-app.use(cors())
-
-app.use((req, res, next) =>{
-    res.setHeader('Access-Controll-Allow-Origin', '*')
-    res.setHeader('Access-Controll-Allow-Headers', 'Origin,X-Requested-With,Content,Accept,Content-Type,Authorization')
-    res.setHeader('Access-Controll-Allow-Methods', 'GET,POST,PUT,DELETE')
-    next()
-})
-
-app.get('/', (req, res)=>{
-    res.status(200).json({
-        message: "server is working !"
-    })
-})
-
 import registerRoutes from './routes/register.js';
 import userRoutes from './routes/user.js';
 import loginRoutes from './routes/login.js';
 import quizRoutes from './routes/quiz.js';
+import questionRoutes from './routes/question.js';
+import flagsRoutes from './routes/flags.js';
+import path from 'path';
+import { join } from 'path';
+import { fileURLToPath } from 'url';
+
+const app = express()
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
+app.use(express.static(join(__dirname, 'public')));
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+
+const corsOptions = {
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+    'allowedHeaders': ['sessionId', 'Content-Type', "authorization"],
+    'exposedHeaders': ['sessionId'],
+    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    'preflightContinue': false
+  }
+  app.use(cors(corsOptions));
+
+
 
 // app.use('/post', postRoutes);
 app.use('/user', userRoutes);
 app.use('/register', registerRoutes);
 app.use('/login', loginRoutes);
 app.use('/quiz', quizRoutes);
+app.use('/question', questionRoutes);
+app.use('/flags', flagsRoutes);
 
 
 app.listen(process.env.SERVER_PORT, () => {

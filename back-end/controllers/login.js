@@ -18,20 +18,49 @@ export default {
         
         const verifUser = await User.findUnique({
             where: {
-                email
+                email: email
             }
         })
+        const name = verifUser.name
+        console.log(name);
         if(!verifUser) {
-            console.log('mauvais mail');
+            return res.status(401).send({ message: "L'adresse e-mail est incorrect." });
         } else {
             const checkPassword = compareHash(password, verifUser.password);
             if(!checkPassword){
-                console.log("mauvais password");
+                return res.status(401).send({ message: "le mot de passe est incorrect." });
             } else {
                 console.log("gg t'es co");
-                const accessToken = jwt.sign(verifUser, process.env.ACCESS_TOKEN_SECRET);
-                res.json({ accessToken: accessToken })
+                const token = jwt.sign({ user: verifUser }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
+
+                res.header('Authorization', `Bearer ${token}`);
+                res.status(200).send({ token: token });
             }
         }
     }
 }
+
+// export default {
+//     async login(req, res) {
+//       const { email, password } = req.body;
+    
+//       try {
+//         const verifUser = await User.findUnique({
+//             where:
+//                 email
+//         });
+    
+//         if (!verifUser) return res.status(404).json({ message: "User doesn't exist" });
+    
+//         const isPasswordCorrect = await bcrypt.compare(password, verifUser.password);
+    
+//         if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
+    
+//         const token = jwt.sign({ email: verifUser.email, id: verifUser.id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" });
+    
+//         res.status(200).json({ result: verifUser, token });
+//       } catch (err) {
+//         res.status(500).json({ message: "Something went wrong" });
+//       }
+//     }
+// }

@@ -43,29 +43,6 @@ export default {
             })
            })
     },
-    // register(req, res) {
-    //     const { name, email, password } = req.body
-    //     // égal à
-    //     // const name = req.body.name
-
-    //     User.create({
-    //         data: {
-    //             name: name,
-    //             email: email,
-    //             password: generateHash(password)
-    //         }
-    //     })
-    //        .then(() => {
-    //         res.status(201).send({
-    //             message: "user crée"
-    //         })
-    //        })
-    //        .catch((error) => {
-    //         res.status(500).send({
-    //             message: error.message || "une erreur lors de la création de l'user"
-    //         })
-    //        })
-    // },
     update(req, res) {
         const { id } = req.params
         const { name, email, password } = req.body
@@ -111,22 +88,22 @@ export default {
             })
            })
     },
-    login(req, res) {
-        const { email, password } = req.body
+    // login(req, res) {
+    //     const { email, password } = req.body
 
-        User.findFirst({
-            where: {
-                email: email,
-                password: password
-            },
-        })
-        .then((data) => {
-                res.status(200).send("Bonjour " + data.name + ". Tu es connecté")
-           })
-           .catch((error) => {
-            res.status(500).send({
-                message: error.message || "une erreur lors du getAll"
-            })
-           })
-    },
+    //     User.findFirst({
+    //         where: {
+    //             email: email,
+    //             password: password
+    //         },
+    //     })
+    //     .then((data) => {
+    //             res.status(200).send("Bonjour " + data.name + ". Tu es connecté")
+    //        })
+    //        .catch((error) => {
+    //         res.status(500).send({
+    //             message: error.message || "une erreur lors du getAll"
+    //         })
+    //        })
+    // },
 }
