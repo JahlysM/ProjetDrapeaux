@@ -7,7 +7,6 @@ import GetMyQuizes from './pages/MyQuizes';
 import Question from './pages/Question';
 import Quiz from './pages/Quiz';
 import Register from './pages/Register';
-import Test from './pages/Test';
 
 
 const App = () => {
@@ -23,7 +22,6 @@ const App = () => {
         <Route path='/question' element={<Question/>}/>
         <Route path='/createQuiz' element={<CreateQuiz/>}/>
         <Route path='/myQuizes' element={<GetMyQuizes/>}/>
-        <Route path='/testt' element={<Test/>}/>
       </Routes>
     </BrowserRouter>
   );
