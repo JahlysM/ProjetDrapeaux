@@ -7,7 +7,11 @@ const {answer: Answer} = prisma;
 
 export default {
     getAllFlags(req, res) {
-        Answer.findMany()
+        Answer.findMany({
+            include: {
+                continent: true
+            }
+        })
         .then((data) => {
          res.status(200).send(data)
         })

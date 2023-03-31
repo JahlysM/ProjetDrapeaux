@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route} from "react-router-dom"
 import CreateQuiz from './pages/CreateQuiz';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -7,6 +7,7 @@ import GetMyQuizes from './pages/MyQuizes';
 import Question from './pages/Question';
 import Quiz from './pages/Quiz';
 import Register from './pages/Register';
+import CrudQuestions from './pages/CrudQuestions';
 
 
 const App = () => {
@@ -21,7 +22,8 @@ const App = () => {
         <Route path='/quiz' element={<Quiz/>}/>
         <Route path='/question' element={<Question/>}/>
         <Route path='/createQuiz' element={<CreateQuiz/>}/>
-        <Route path='/myQuizes' element={<GetMyQuizes/>}/>
+        <Route path="/myQuizes/" element={<GetMyQuizes/>}/>
+        <Route path="/myQuizes/:quizId" element={<CrudQuestions/>}/>
       </Routes>
     </BrowserRouter>
   );

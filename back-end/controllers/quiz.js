@@ -55,6 +55,25 @@ export default {
          })
         })
     },
+    deleteQuiz(req, res) {
+        const { id } = req.params;
+
+        Quiz.delete({
+            where: {
+                id: id,
+            }
+        })
+        .then(() => {
+            res.status(200).send({
+                message: "quiz supprimé"
+            })
+        })
+        .catch((error) => {
+            res.status(500).send({
+                message: error.message || "une erreur lors de la suppression du quiz: " + id
+            })
+        })
+    },
     createQuestion(req, res) {
         const { question, goodAnswer, answer2, answer3, answer4, quiz } = req.body
         Question.create({

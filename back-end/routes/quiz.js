@@ -1,9 +1,9 @@
 import express from "express";
 const router = express.Router();
-import jwt from "jsonwebtoken";
 
 // import { userController } from "../controllers";
 import quizController from "../controllers/quiz.js";
+import questionController from "../controllers/question.js";
 
 // function authenticateToken(req, res, next) {
 //     const authHeader = req.headers['authorization'];
@@ -16,10 +16,12 @@ import quizController from "../controllers/quiz.js";
 //     })
 // }
 
+router.get('/:id/:id2', questionController.getMyQuestions);
 router.get('/:id', quizController.findMyQuiz);
 router.get('/', quizController.findAllQuiz);
 router.post('/', quizController.createQuiz);
 router.post('/:id', quizController.createQuestion);
 router.get('/all', quizController.getAllQuestions);
+router.delete('/:id', quizController.deleteQuiz);
 
 export default router;

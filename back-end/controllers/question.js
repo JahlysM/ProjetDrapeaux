@@ -14,6 +14,7 @@ export default {
             data: {
                 // question
                 question: question,
+                goodAnswer: goodAnswer,
                 // tableau de réponses
                 answer: {
                     // connection à la table answer
@@ -62,10 +63,10 @@ export default {
         })
     },
     getMyQuestions(req, res) {
-        const { id } = req.params
+        const { id2 } = req.params
         Question.findMany({
             where: {
-                quizId: id
+                quizId: id2
             },
             include: {
                 answer: true

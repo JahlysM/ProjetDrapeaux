@@ -5,7 +5,7 @@ const router = express.Router();
 import questionController from "../controllers/question.js";
 
 router.get('/', questionController.getAllQuestions);
-router.get('/:id', questionController.getMyQuestions);
+// router.get('/:id', questionController.getMyQuestions);
 router.post('/:id', questionController.createQuestion);
 // router.delete('/:id/:id2', questionController.deleteQuestion);
 router.delete('/:id', questionController.deleteQuestion);

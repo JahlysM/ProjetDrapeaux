@@ -45,11 +45,12 @@ model Score {
 }
 
 model Question {
-  id       String   @id @default(uuid())
-  question String
-  answer   Answer[]
-  quiz     Quiz     @relation(fields: [quizId], references: [id])
-  quizId   String
+  id         String   @id @default(uuid())
+  question   String
+  answer     Answer[]
+  quiz       Quiz     @relation(fields: [quizId], references: [id])
+  quizId     String
+  goodAnswer String
 }
 
 model Answer {

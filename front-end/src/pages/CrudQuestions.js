@@ -1,14 +1,14 @@
 import React from 'react';
 import Navigation from '../components/Navigation';
-import GetMyQuize from '../components/GetMyQuizes';
+import QuizDetails from '../components/QuizDetails';
 
-const GetMyQuizes = () => {
+const CrudQuestions = () => {
     return (
         <div>
             <Navigation/>
-            <GetMyQuize/>
+            <QuizDetails/>
         </div>
     );
 };
 
-export default GetMyQuizes;
+export default CrudQuestions;

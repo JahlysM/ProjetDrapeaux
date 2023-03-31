@@ -26,6 +26,7 @@ const Connexion = () => {
   useEffect(() => {
     if(token) {
       const decodedToken = decodeToken(token);
+      console.log(decodedToken);
       localStorage.setItem('user', decodedToken.user.name);
     }
     const storageUsername = localStorage.getItem("user");

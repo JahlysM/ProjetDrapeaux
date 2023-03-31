@@ -4,7 +4,7 @@ import axios from 'axios';
 const Questions = () => {
     const [data, setData] = useState([]);
     useEffect(() => {
-        axios.get("http://localhost:9000/Question/e5dcd5dd-715b-421b-abf6-3b09500e1e24")
+        axios.get("http://localhost:9000/Question/")
         .then((res) => setData(res.data));
     }, [])
 
@@ -16,6 +16,8 @@ const Questions = () => {
                 {data.map((flags, index) => 
                     <li key={index}>
                         <p>{flags.question}</p>
+                        <p>id:    {flags.id}</p>
+                        <p>quiz id:   {flags.quizId}</p>
                         <ul>
                             {flags.answer.map(options => (
                                 <li key={options.name}>
