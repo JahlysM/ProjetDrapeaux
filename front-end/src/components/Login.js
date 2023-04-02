@@ -34,6 +34,8 @@ const Connexion = () => {
       setName(storageUsername);
       return Navigate("/quiz");
     };
+    // ignore la demande de callback sur navigate
+    // eslint-disable-next-line
   }, [token, name]);
   
     

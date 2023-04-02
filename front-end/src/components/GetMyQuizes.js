@@ -9,37 +9,79 @@ const GetMyQuizes = () => {
     const [data, setData] = useState([]);
     const token  = localStorage.getItem("token");
     const decodedToken = decodeToken(token);
+    const [editIndex, setEditIndex] = useState(null);
     const authorId = decodedToken.user.id;
-    
-    // console.log(authorId);
+
     useEffect(() => {
         axios.get("http://localhost:9000/quiz/" + authorId)
         .then((res) => setData(res.data));
-        // ignore la demande de callback si authorId change
-        // eslint-disable-next-line
-    }, []);
+    }, [authorId]);
 
     const deleteQuiz = (id) => {
         axios.delete("http://localhost:9000/quiz/" + id)
         .then(console.log("quiz " + id + " supprimé"))
         .catch((err) => console.log(err));
     };
-    
+
+    const updateQuiz = (id, updatedQuiz) => {
+        axios.put("http://localhost:9000/quiz/" + id, updatedQuiz)
+        .then(console.log(updatedQuiz))
+        .catch((err) => console.log(err));
+    };
+
+
+    const handleEditClick = (index) => {
+        setEditIndex(index);
+    };
+
+    const handleEditCancel = () => {
+        setEditIndex(null);
+    };
+
+    const handleEditSubmit = (e, index, quiz) => {
+        e.preventDefault();
+        const updatedQuiz = {
+            quiz,
+            name: e.target.elements.name.value,
+            difficulty: e.target.elements.difficulty.value,
+        };
+        updateQuiz(quiz.id, updatedQuiz);
+        setData(data.map((a, b) => b === index ? updatedQuiz : a));
+        setEditIndex(null);
+    };
+
     return (
         <div>
             <ul>
-                {data.map((quiz, index) => 
-                <ul key={index}>
-                    <li>nom du quiz: {quiz.name}</li>
-                    <li>auteur du quiz: {quiz.authorId}</li>
-                    <li>id du quiz: {quiz.id}</li>
-                    <li>difficulté du quiz: {quiz.difficulty}</li>
-                    <Link to={"/myQuizes/" + quiz.id}>
-                        <button>gérer les questions</button>
-                    </Link>
-                    <button onClick={() => deleteQuiz(quiz.id)}>supprimer</button>
-                </ul>
-                )}
+                {data.map((quiz, index) => (
+                    <li key={index}>
+                        {editIndex === index ? (
+                            <form onSubmit={(e) => handleEditSubmit(e, index, quiz)}>
+                                <input type="text" name="name" defaultValue={quiz.name} />
+                                <select name="difficulty" defaultValue={quiz.difficulty}>
+                                    <option value="DIFFICILE">DIFFICILE</option>
+                                    <option value="SIMPLE">SIMPLE</option>
+                                    <option value="NORMAL">NORMAL</option>
+                                </select>
+                                <button type="submit">valider</button>
+                                <button type="button" onClick={handleEditCancel}>annuler</button>
+                            </form>
+                        ) : (
+                            <>
+                                <div>nom du quiz: {quiz.name}</div>
+                                <div>difficulté du quiz: {quiz.difficulty}</div>
+                                <Link to={"/myQuizes/createQuestion/" + quiz.id}>
+                                    <button>ajouter une question</button>
+                                </Link>
+                                <Link to={"/myQuizes/" + quiz.id}>
+                                    <button>gérer les questions</button>
+                                </Link>
+                                <button onClick={() => handleEditClick(index)}>modifier</button>
+                                <button onClick={() => deleteQuiz(quiz.id)}>supprimer</button>
+                            </>
+                        )}
+                    </li>
+                ))}
             </ul>
         </div>
     );

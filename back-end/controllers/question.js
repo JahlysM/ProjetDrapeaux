@@ -9,7 +9,7 @@ export default {
     createQuestion(req, res) {
         const { question, goodAnswer, answer2, answer3, answer4} = req.body;
         // récupère l'id du quiz dans l'url
-        const { id } = req.params;
+        const { quizId } = req.params;
         Question.create({
             data: {
                 // question
@@ -31,7 +31,7 @@ export default {
                 quiz: {
                     // Se connecter au quiz
                     connect: {
-                        id: id,
+                        id: quizId,
                     }
                 }
             }
@@ -107,10 +107,11 @@ export default {
         try {
             const updatedQuestion = await Question.update({
                 where: {
-                    id: id,
+                    id
                 },
                 data: {
                     question: question,
+                    goodAnswer: goodAnswer,
                     answer: {
                         connect: [
                             { id: goodAnswer },

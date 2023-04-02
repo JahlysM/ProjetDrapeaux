@@ -20,8 +20,9 @@ router.get('/:id/:id2', questionController.getMyQuestions);
 router.get('/:id', quizController.findMyQuiz);
 router.get('/', quizController.findAllQuiz);
 router.post('/', quizController.createQuiz);
-router.post('/:id', quizController.createQuestion);
+// router.post('/:id', quizController.createQuestion);
 router.get('/all', quizController.getAllQuestions);
 router.delete('/:id', quizController.deleteQuiz);
+router.put('/:id', quizController.updateQuiz);
 
 export default router;

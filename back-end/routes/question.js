@@ -6,7 +6,7 @@ import questionController from "../controllers/question.js";
 
 router.get('/', questionController.getAllQuestions);
 // router.get('/:id', questionController.getMyQuestions);
-router.post('/:id', questionController.createQuestion);
+router.post('/:quizId', questionController.createQuestion);
 // router.delete('/:id/:id2', questionController.deleteQuestion);
 router.delete('/:id', questionController.deleteQuestion);
 router.patch('/:id', questionController.updateQuestion);

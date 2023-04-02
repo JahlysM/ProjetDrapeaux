@@ -45,6 +45,9 @@ const Navigation = () => {
                 <NavLink to="/myQuizes" className={(nav) => (nav.isActive ? "nav-active" : "")}>
                     <li>Mes quiz</li>
                 </NavLink>
+                <NavLink to="/createQuestion" className={(nav) => (nav.isActive ? "nav-active" : "")}>
+                    <li>Create question</li>
+                </NavLink>
             </ul>
             <button onClick={handleLogout}>déconnexion</button>
             {name ? <li>Connecté en tant que {name}</li> : <li>tu n'es pas connecté</li>}
