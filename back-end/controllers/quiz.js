@@ -107,21 +107,21 @@ export default {
     //      })
     //     })
     // },
-    getAllQuestions(req, res) {
-        Question.findMany({
-            include: {
-                answer: true
-            }
-        })
-        .then((data) => {
-         res.status(200).send(data)
-        })
-        .catch((error) => {
-         res.status(500).send({
-             message: error.message || "une erreur lors du getAllQuestions"
-         })
-        })
-    },
+    // getAllQuestions(req, res) {
+    //     Question.findMany({
+    //         include: {
+    //             answer: true
+    //         }
+    //     })
+    //     .then((data) => {
+    //      res.status(200).send(data)
+    //     })
+    //     .catch((error) => {
+    //      res.status(500).send({
+    //          message: error.message || "une erreur lors du getAllQuestions"
+    //      })
+    //     })
+    // },
     async updateQuiz(req, res) {
         const { id } = req.params;
         const { name, difficulty, authorId } = req.body
@@ -147,30 +147,3 @@ export default {
         }
     },
 }
-
-
-// export default {
-//     register(req, res) {
-//         const { name, email, password } = req.body
-//         // égal à
-//         // const name = req.body.name
-
-//         User.create({
-//             data: {
-//                 name: name,
-//                 email: email,
-//                 password: generateHash(password)
-//             }
-//         })
-//            .then(() => {
-//             res.status(201).send({
-//                 message: "user crée"
-//             })
-//            })
-//            .catch((error) => {
-//             res.status(500).send({
-//                 message: error.message || "une erreur lors de la création de l'user"
-//             })
-//            })
-//     }
-// }

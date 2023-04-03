@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const GetQuiz = () => {
 
@@ -21,14 +22,14 @@ const GetQuiz = () => {
 
     return (
         <div>
-            <p>{name}</p>
             <ul>
                 {quiz.map((quiz, index) => 
                 <ul key={index}>
                     <li>nom du quiz: {quiz.name}</li>
-                    <li>auteur du quiz: {quiz.authorId}</li>
-                    <li>id du quiz: {quiz.id}</li>
                     <li>difficulté du quiz: {quiz.difficulty}</li>
+                    <Link to={"/quiz/" + quiz.id}>
+                        <button>Lancer le quiz</button>
+                    </Link>
                 </ul>
                 )}
             </ul>

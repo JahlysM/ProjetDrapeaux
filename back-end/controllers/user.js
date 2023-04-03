@@ -88,22 +88,4 @@ export default {
             })
            })
     },
-    // login(req, res) {
-    //     const { email, password } = req.body
-
-    //     User.findFirst({
-    //         where: {
-    //             email: email,
-    //             password: password
-    //         },
-    //     })
-    //     .then((data) => {
-    //             res.status(200).send("Bonjour " + data.name + ". Tu es connecté")
-    //        })
-    //        .catch((error) => {
-    //         res.status(500).send({
-    //             message: error.message || "une erreur lors du getAll"
-    //         })
-    //        })
-    // },
 }

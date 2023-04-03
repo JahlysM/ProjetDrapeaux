@@ -132,27 +132,7 @@ export default {
                 message: error.message || "Une erreur est survenue lors de la mise à jour de la question " + id,
             });
         }
-    }
-    ,
-    // async deleteQuestion(req, res) {
-    //     const { id } = req.params
-    //     // récupèrer l'id du quiz où se trouve la question
-    //     const verifQuestion = await Question.findUnique({
-    //     where: {
-    //         id: id
-    //     }
-    // })
-    // if(verifQuestion){
-    //     Question.delete({
-    //         where: {
-    //             id: id
-    //         }
-    //     })
-    //     console.log("question supprimée");
-    // } else {
-    //     console.log("la question n'existe pas");
-    // }
-    // },
+    },
 }
 
 

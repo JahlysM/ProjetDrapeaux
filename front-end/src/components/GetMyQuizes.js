@@ -67,6 +67,7 @@ const GetMyQuizes = () => {
                                 <button type="button" onClick={handleEditCancel}>annuler</button>
                             </form>
                         ) : (
+                            // juste des <> vides fonctionnent ? verifier ça
                             <>
                                 <div>nom du quiz: {quiz.name}</div>
                                 <div>difficulté du quiz: {quiz.difficulty}</div>

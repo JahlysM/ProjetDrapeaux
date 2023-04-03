@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { decodeToken } from 'react-jwt';
-import { Link } from 'react-router-dom';
+import Navigation from '../components/Navigation';
 
-const QuizDetails = () => {
+const QuizPlay = () => {
   const { quizId } = useParams();
   const token  = localStorage.getItem("token");
   const decodedToken = decodeToken(token);
   const authorId = decodedToken.user.id;
   const [questions, setQuestions] = useState(null);
+  
 
   useEffect(() => {
     axios.get(`http://localhost:9000/question/` + authorId + "/" + quizId)
@@ -21,16 +22,12 @@ const QuizDetails = () => {
     return <div>Loading...</div>;
   };
 
-  const deleteQuestion = (id) => {
-    axios.delete("http://localhost:9000/question/" + id)
-    .then(console.log("quiz " + id + " supprimé"))
-    .catch((err) => console.log(err));
-};
 
   const imgUrl = "http://localhost:9000/assets/img/flags/"
 
   return (
     <div>
+        <Navigation/>
         <ul>
             {questions.map((question, index) => 
             <ul key={index}>
@@ -38,21 +35,16 @@ const QuizDetails = () => {
                 <li>La question: {question.question}</li>
                 <ul>
                   {question.answer.map((option, index) =>
-                    <li key={index}><img src= {imgUrl + option.flag} alt={option.name} /></li>
+                    <li key={index}><img src= {imgUrl + option.flag} alt={option.name}/></li>
                   )}
                 </ul>
-                <Link to={"/myQuizes/" + quizId + "/" + question.id}>
-                  <button>modifier</button>
-                </Link>
-                <button onClick={() => deleteQuestion(question.id)}>supprimer</button>
             </ul>
             )}
         </ul>
-
-
-        {/* {ts ? <ul> {ts.map((question, index) => <ul key={index}>   <li>question: {question.question}</li> <ul>{question.answer.map((options, index) => <li key={index}>{options.name}</li>)}</ul>   </ul>)}</ul> : ""} */}
+        <button>Valider mes choix</button>
     </div>
 );
 };
 
-export default QuizDetails;
+export default QuizPlay;
+// onClick={() => quizValidation()}

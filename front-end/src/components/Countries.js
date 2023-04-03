@@ -70,13 +70,13 @@ const Countries = () => {
                             : <div>
                                 <h3>{"question: " + question}</h3>
                                 <ul>
-                                    <li><img src={imgUrl + goodAnswer.flag} alt="" /></li>
-                                    <li><img src={imgUrl + answer2.flag} alt="" /></li>
-                                    <li><img src={imgUrl + answer3.flag} alt="" /></li>
-                                    <li><img src={imgUrl + answer4.flag} alt="" /></li>
+                                    <li><img src={imgUrl + goodAnswer.flag} alt={goodAnswer.name} /></li>
+                                    <li><img src={imgUrl + answer2.flag} alt={answer2.name}/></li>
+                                    <li><img src={imgUrl + answer3.flag} alt={answer3.name}/></li>
+                                    <li><img src={imgUrl + answer4.flag} alt={answer4.name}/></li>
                                 </ul>
                                 <button onClick={handleCreateQuestion}>valider</button>
-                                <button>annuler</button>
+                                <button>modifier</button>
                             </div>
                         )
                     )

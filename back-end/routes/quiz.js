@@ -1,9 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-// import { userController } from "../controllers";
 import quizController from "../controllers/quiz.js";
-import questionController from "../controllers/question.js";
 
 // function authenticateToken(req, res, next) {
 //     const authHeader = req.headers['authorization'];
@@ -16,13 +14,17 @@ import questionController from "../controllers/question.js";
 //     })
 // }
 
-router.get('/:id/:id2', questionController.getMyQuestions);
+
+// utilisé 100%
 router.get('/:id', quizController.findMyQuiz);
+
 router.get('/', quizController.findAllQuiz);
 router.post('/', quizController.createQuiz);
-// router.post('/:id', quizController.createQuestion);
-router.get('/all', quizController.getAllQuestions);
+
+// utilisé 100%
 router.delete('/:id', quizController.deleteQuiz);
+
+// utilisé 100%
 router.put('/:id', quizController.updateQuiz);
 
 export default router;

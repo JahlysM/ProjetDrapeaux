@@ -4,7 +4,6 @@ import { decodeToken } from "react-jwt";
 import { useNavigate } from 'react-router-dom';
 
 const Connexion = () => {
-    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [token, setToken] = useState('');
@@ -26,31 +25,23 @@ const Connexion = () => {
   useEffect(() => {
     if(token) {
       const decodedToken = decodeToken(token);
-      console.log(decodedToken);
-      localStorage.setItem('user', decodedToken.user.name);
+      const authorName = decodedToken.user.name;
+      if(authorName){
+        return Navigate("/quiz");
+      }
     }
-    const storageUsername = localStorage.getItem("user");
-    if(storageUsername) {
-      setName(storageUsername);
-      return Navigate("/quiz");
-    };
-    // ignore la demande de callback sur navigate
-    // eslint-disable-next-line
-  }, [token, name]);
-  
-    
+  });
 
     return (
-        <div>
-            {name ? <p>bienvenue, {name}</p> : <p>tu n'es pas log</p>}
-            <form action="" onSubmit={(e) => handleLogin(e)}>
-                <label htmlFor="">Votre email</label>
-                <input type="email" placeholder='email' onChange={(e) => setEmail(e.target.value)} />
-                <label htmlFor="">Votre mot de passe</label>
-                <input type="password" placeholder='mot de passe' onChange={(e) => setPassword(e.target.value)} />
-                <input type="submit" value="envoyer"/>
-            </form>
-        </div>
+      <div>
+        <form action="" onSubmit={(e) => handleLogin(e)}>
+          <label htmlFor="">Votre email</label>
+          <input type="email" placeholder='email' onChange={(e) => setEmail(e.target.value)} />
+          <label htmlFor="">Votre mot de passe</label>
+          <input type="password" placeholder='mot de passe' onChange={(e) => setPassword(e.target.value)} />
+          <input type="submit" value="envoyer"/>
+        </form>
+      </div>
     );
 };
 
