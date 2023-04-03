@@ -103,51 +103,6 @@ const App = () => {
       </BrowserRouter>
     );
   }
-
-  
-  // return (
-  //   <BrowserRouter>
-  //     <Routes>
-  //       {/* <Route path='/' element={<Home/>}/> */}
-
-  //       {/* Url inconnue envoie sur Home */}
-  //       <Route path='*' element={<Login/>}/>
-
-  //       {/* inscription */}
-  //       <Route path='/register' element={<Register/>}/>
-
-  //       {/* connection */}
-  //       <Route path='/login' element={<Login/>}/>
-
-  //       {/* Affiche tout les quiz */}
-  //       <Route path='/quiz' element={<Quiz/>}/>
-
-  //       {/* lance un quiz */}
-  //       <Route path='/quiz/:quizId' element={<QuizPlay/>}/>
-
-  //       {/* nul */}
-  //       {/* <Route path='/question' element={<Question/>}/> */}
-
-  //       {/* Créer un quiz */}
-  //       <Route path='/createQuiz' element={<CreateQuiz/>}/>
-
-  //       {/* Mes quiz */}
-  //       <Route path="/myQuizes/" element={<GetMyQuizes/>}/>
-
-  //       {/* mes quiz => gestion questions */}
-  //       <Route path="/myQuizes/:quizId" element={<CrudQuestions/>}/>
-
-
-  //       <Route path="/myQuizes/:quizId/:id" element={<UpdateQuestion/>}/>
-
-  //       {/* Créer une question */}
-  //       <Route path="/myQuizes/createQuestion/:quizId" element={<Home/>}/>
-
-  //       {/* nul */}
-  //       {/* <Route path="/createQuestion" element={<CreateQuestion/>}/> */}
-  //     </Routes>
-  //   </BrowserRouter>
-  // );
 };
 
 export default App;
