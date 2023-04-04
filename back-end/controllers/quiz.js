@@ -2,7 +2,6 @@ import pkg from "@prisma/client";
 const { PrismaClient } = pkg;
 const prisma = new PrismaClient();
 const {quiz: Quiz} = prisma;
-const {question: Question} = prisma;
 
 
 
@@ -55,76 +54,52 @@ export default {
          })
         })
     },
-    deleteQuiz(req, res) {
-        const { id } = req.params;
+    // deleteQuiz(req, res) {
+    //     const { id } = req.params;
 
-        Quiz.delete({
-            where: {
-                id: id,
-            }
-        })
-        .then(() => {
-            res.status(200).send({
-                message: "quiz supprimé"
-            })
-        })
-        .catch((error) => {
-            res.status(500).send({
-                message: error.message || "une erreur lors de la suppression du quiz: " + id
-            })
-        })
-    },
-    // createQuestion(req, res) {
-    //     const { question, goodAnswer, answer2, answer3, answer4} = req.body
-        
-    //     Question.create({
-    //         data: {
-    //             question: question,
-    //             answer: {
-    //                 connect: [
-    //                     { id: goodAnswer },
-    //                     { id: answer2 },
-    //                     { id: answer3 },
-    //                     { id: answer4 },
-    //                 ]
-    //             },
-    //             quiz: {
-    //                 connect: {
-    //                     // trouver un moyen de récupérer l'id du quiz
-    //                     id: quiz
-    //                 }
-    //             }
+    //     Quiz.delete({
+    //         where: {
+    //             id
     //         }
     //     })
     //     .then(() => {
-    //      res.status(201).send({
-    //          message: "Quiz crée"
-    //      })
+    //         res.status(200).send({
+    //             message: "quiz supprimé"
+    //         })
     //     })
     //     .catch((error) => {
-    //      res.status(500).send({
-    //          message: error.message || "une erreur lors de la création du quiz"
-    //      })
+    //         res.status(500).send({
+    //             message: error.message || "une erreur lors de la suppression du quiz: " + id
+    //         })
     //     })
     // },
-    // getAllQuestions(req, res) {
-    //     Question.findMany({
-    //         include: {
-    //             answer: true
-    //         }
-    //     })
-    //     .then((data) => {
-    //      res.status(200).send(data)
-    //     })
-    //     .catch((error) => {
-    //      res.status(500).send({
-    //          message: error.message || "une erreur lors du getAllQuestions"
-    //      })
-    //     })
-    // },
+    async deleteQuiz(req, res) {
+        const { id } = req.params;
+        const quiz = Quiz.findUnique({
+          where: id,
+          include: { questions: true },
+        });
+      
+        if (!quiz) {
+          throw new Error(`Quiz with id ${id} not found`);
+        }
+      
+        // Supprime toutes les questions associées au quiz
+        const deleteQuestionsPromise = prisma.question.deleteMany({
+          where: { quizId: id },
+        });
+      
+        // Supprime le quiz
+        const deleteQuizPromise = Quiz.delete({
+          where: { id },
+        });
+      
+        // Exécute les opérations de suppression dans une transaction
+        await prisma.$transaction([deleteQuestionsPromise, deleteQuizPromise]).then(console.log("supprimé"));
+      },
     async updateQuiz(req, res) {
         const { id } = req.params;
-        const { name, difficulty, authorId } = req.body
+        const { name, difficulty } = req.body
         try {
             const updatedQuiz = await Quiz.update({
                 where: {
@@ -133,7 +108,6 @@ export default {
                 data: {
                     name,
                     difficulty,
-                // authorId: authorId
                 }
             });
             res.status(200).send({

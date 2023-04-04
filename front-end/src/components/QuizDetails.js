@@ -10,12 +10,17 @@ const QuizDetails = () => {
   const decodedToken = decodeToken(token);
   const authorId = decodedToken.user.id;
   const [questions, setQuestions] = useState(null);
+  const [isDeleted, setIsDeleted] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:9000/question/` + authorId + "/" + quizId)
-      .then(res => setQuestions(res.data))
+    axios.get(`http://localhost:9000/question/` + quizId)
+      .then(res => {
+        setQuestions(res.data);
+        setIsDeleted(false);
+      })
       .catch(err => console.log(err));
-  }, [quizId, authorId]);
+  }, [quizId, authorId, isDeleted]);
+  
 
   if (!questions) {
     return <div>Loading...</div>;
@@ -23,9 +28,13 @@ const QuizDetails = () => {
 
   const deleteQuestion = (id) => {
     axios.delete("http://localhost:9000/question/" + id)
-    .then(console.log("quiz " + id + " supprimé"))
-    .catch((err) => console.log(err));
-};
+      .then(() => {
+        console.log("quiz " + id + " supprimé");
+        setIsDeleted(true); // déclenche le rechargement de la page
+      })
+      .catch((err) => console.log(err));
+  };
+  
 
   const imgUrl = "http://localhost:9000/assets/img/flags/"
 
@@ -48,9 +57,6 @@ const QuizDetails = () => {
             </ul>
             )}
         </ul>
-
-
-        {/* {ts ? <ul> {ts.map((question, index) => <ul key={index}>   <li>question: {question.question}</li> <ul>{question.answer.map((options, index) => <li key={index}>{options.name}</li>)}</ul>   </ul>)}</ul> : ""} */}
     </div>
 );
 };

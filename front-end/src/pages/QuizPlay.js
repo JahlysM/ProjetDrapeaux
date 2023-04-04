@@ -13,7 +13,7 @@ const QuizPlay = () => {
   
 
   useEffect(() => {
-    axios.get(`http://localhost:9000/question/` + authorId + "/" + quizId)
+    axios.get(`http://localhost:9000/question/` + quizId)
       .then(res => setQuestions(res.data))
       .catch(err => console.log(err));
   }, [quizId, authorId]);

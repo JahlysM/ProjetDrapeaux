@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { decodeToken } from 'react-jwt';
+import { useNavigate } from 'react-router-dom';
 
 const CreateMyQuiz = () => {
     const [name, setName] = useState("");
     const [difficulty, setDifficulty] = useState("NORMAL");
-
     const token  = localStorage.getItem("token");
     const decodedToken = decodeToken(token);
     const authorId = decodedToken.user.id;
+    const Navigate = useNavigate();
 
-    const handleCreateQuiz = (e) => {
+    const handleCreateQuiz = async (e) => {
         e.preventDefault();
-        axios.post("http://localhost:9000/quiz", {
+        try {
+          await axios.post("http://localhost:9000/quiz", {
             name,
             difficulty,
             authorId,
-        })
-    }
+          });
+          Navigate("/myQuizes");
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      
     return (
         <div>
             <form action="" onSubmit={(e) => handleCreateQuiz(e)}>

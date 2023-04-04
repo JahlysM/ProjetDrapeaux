@@ -7,6 +7,7 @@ const Connexion = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [token, setToken] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,13 +22,12 @@ const Connexion = () => {
     }
   };
 
-  const Navigate = useNavigate();
   useEffect(() => {
     if(token) {
       const decodedToken = decodeToken(token);
       const authorName = decodedToken.user.name;
       if(authorName){
-        return Navigate("/quiz");
+        return navigate("/quiz");
       }
     }
   });

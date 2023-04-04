@@ -47,26 +47,27 @@ export default {
          })
         })
     },
-    getAllQuestions(req, res) {
-        Question.findMany({
-            include: {
-                answer: true
-            }
-        })
-        .then((data) => {
-         res.status(200).send(data)
-        })
-        .catch((error) => {
-         res.status(500).send({
-             message: error.message || "une erreur lors du getAllQuestions"
-         })
-        })
-    },
+    // jamais utilisé du coup ?
+    // getAllQuestions(req, res) {
+    //     Question.findMany({
+    //         include: {
+    //             answer: true
+    //         }
+    //     })
+    //     .then((data) => {
+    //      res.status(200).send(data)
+    //     })
+    //     .catch((error) => {
+    //      res.status(500).send({
+    //          message: error.message || "une erreur lors du getAllQuestions"
+    //      })
+    //     })
+    // },
     getMyQuestions(req, res) {
-        const { id2 } = req.params
+        const { id } = req.params
         Question.findMany({
             where: {
-                quizId: id2
+                quizId: id
             },
             include: {
                 answer: true

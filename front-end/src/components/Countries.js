@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Countries = () => {
     const [data, setData] = useState([]);
@@ -16,6 +17,7 @@ const Countries = () => {
     const radios = ["Afrique", "Europe", "Amérique", "Asie", "Océanie"];
     const { quizId } = useParams();
     const imgUrl = "http://localhost:9000/assets/img/flags/";
+    const Navigate = useNavigate();
 
     useEffect(() => {
         axios.get("http://localhost:9000/flags")
@@ -53,6 +55,10 @@ const Countries = () => {
             answer3: answer3.id,
             answer4: answer4.id,
         })
+        .then(() => {
+            // redirection vers la page souhaitée
+            return Navigate("/myQuizes/" + quizId);
+        });
     }
 
 
