@@ -28,14 +28,13 @@ const App = () => {
     }
   }
 
+  // Si user est admin
   if(isAdmin === true){
     return (
       <BrowserRouter>
         <Routes>
-          {/* <Route path='/' element={<Home/>}/> */}
-  
-          {/* Url inconnue envoie sur Home */}
-          <Route path='*' element={<Login/>}/>
+          {/* Url inconnue envoie sur Quiz */}
+          <Route path='*' element={<Quiz/>}/>
   
           {/* inscription */}
           <Route path='/register' element={<Register/>}/>
@@ -49,9 +48,6 @@ const App = () => {
           {/* lance un quiz */}
           <Route path='/quiz/:quizId' element={<QuizPlay/>}/>
   
-          {/* nul */}
-          {/* <Route path='/question' element={<Question/>}/> */}
-  
           {/* Créer un quiz */}
           <Route path='/createQuiz' element={<CreateQuiz/>}/>
   
@@ -60,15 +56,12 @@ const App = () => {
   
           {/* mes quiz => gestion questions */}
           <Route path="/myQuizes/:quizId" element={<CrudQuestions/>}/>
-  
-  
+
+          {/* mettre a jour un quiz */}
           <Route path="/myQuizes/:quizId/:id" element={<UpdateQuestion/>}/>
   
           {/* Créer une question */}
           <Route path="/myQuizes/createQuestion/:quizId" element={<Home/>}/>
-  
-          {/* nul */}
-          {/* <Route path="/createQuestion" element={<CreateQuestion/>}/> */}
         </Routes>
       </BrowserRouter>
     );

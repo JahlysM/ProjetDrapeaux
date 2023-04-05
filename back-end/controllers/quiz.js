@@ -6,8 +6,23 @@ const {quiz: Quiz} = prisma;
 
 
 export default {
+    // findAllQuiz(req, res) {
+    //     Quiz.findMany()
+    //     .then((data) => {
+    //      res.status(200).send(data)
+    //     })
+    //     .catch((error) => {
+    //      res.status(500).send({
+    //          message: error.message || "une erreur lors du findAllQuiz"
+    //      })
+    //     })
+    // },
     findAllQuiz(req, res) {
-        Quiz.findMany()
+        Quiz.findMany({
+            where: {
+                isOnline: true
+            }
+        })
         .then((data) => {
          res.status(200).send(data)
         })
@@ -22,6 +37,9 @@ export default {
         Quiz.findMany({
             where: {
                 authorId : id
+            },
+            include: {
+                Question: true
             }
         }
         )
@@ -54,25 +72,6 @@ export default {
          })
         })
     },
-    // deleteQuiz(req, res) {
-    //     const { id } = req.params;
-
-    //     Quiz.delete({
-    //         where: {
-    //             id
-    //         }
-    //     })
-    //     .then(() => {
-    //         res.status(200).send({
-    //             message: "quiz supprimé"
-    //         })
-    //     })
-    //     .catch((error) => {
-    //         res.status(500).send({
-    //             message: error.message || "une erreur lors de la suppression du quiz: " + id
-    //         })
-    //     })
-    // },
     async deleteQuiz(req, res) {
         const { id } = req.params;
         const quiz = Quiz.findUnique({
@@ -117,6 +116,27 @@ export default {
         } catch (error) {
             res.status(500).send({
                 message: error.message || "Une erreur est survenue lors de la mise à jour du quiz " + id,
+            });
+        }
+    },
+    async publishQuiz(req, res) {
+        const { id } = req.params;
+        try {
+            const updatedQuiz = await Quiz.update({
+                where: {
+                    id
+                },
+                data: {
+                    isOnline: true
+                }
+            });
+            res.status(200).send({
+                message: "Quiz mis en ligne",
+                data: updatedQuiz,
+            });
+        } catch (error) {
+            res.status(500).send({
+                message: error.message || "Une erreur est survenue lors de la publication du quiz " + id,
             });
         }
     },

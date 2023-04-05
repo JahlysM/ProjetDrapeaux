@@ -27,4 +27,7 @@ router.delete('/:id', quizController.deleteQuiz);
 // utilisé 100%
 router.put('/:id', quizController.updateQuiz);
 
+// en test
+router.patch('/:id', quizController.publishQuiz);
+
 export default router;

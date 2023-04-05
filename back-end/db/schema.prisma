@@ -24,6 +24,8 @@ model Quiz {
   author     User       @relation(fields: [authorId], references: [id])
   authorId   String
   Question   Question[]
+  isOnline   Boolean    @default(false)
+  quizScore  Score[]
 }
 
 enum Role {
@@ -38,10 +40,12 @@ enum Difficulty {
 }
 
 model Score {
-  id     String @id @default(uuid())
+  id     String  @id @default(uuid())
   score  Int
-  User   User   @relation(fields: [userId], references: [id])
+  User   User    @relation(fields: [userId], references: [id])
   userId String
+  Quiz   Quiz?   @relation(fields: [quizId], references: [id])
+  quizId String?
 }
 
 model Question {
