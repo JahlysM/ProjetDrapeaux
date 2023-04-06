@@ -15,7 +15,7 @@ const GetMyQuizes = () => {
 
     // récupère tout les quiz de user
     useEffect(() => {
-        axios.get("http://localhost:9000/quiz/" + authorId)
+        axios.get("http://localhost:9000/quiz/myQuizes/" + authorId)
         .then(res => {
             setData(res.data);
             setIsDeleted(false);
@@ -98,8 +98,8 @@ const GetMyQuizes = () => {
                             </form>
                         ) : (
                             <>
-                                <div>nom du quiz: {quiz.name}</div>
-                                <div>difficulté du quiz: {quiz.difficulty}</div>
+                                <p>nom du quiz: {quiz.name}</p>
+                                <p>difficulté du quiz: {quiz.difficulty}</p>
                                 {/* vérifie si le quiz est déjà en ligne */}
                                 {quiz.isOnline 
                                 ? <p>quiz déjà en ligne</p> 

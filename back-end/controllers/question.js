@@ -47,22 +47,6 @@ export default {
          })
         })
     },
-    // jamais utilisé du coup ?
-    // getAllQuestions(req, res) {
-    //     Question.findMany({
-    //         include: {
-    //             answer: true
-    //         }
-    //     })
-    //     .then((data) => {
-    //      res.status(200).send(data)
-    //     })
-    //     .catch((error) => {
-    //      res.status(500).send({
-    //          message: error.message || "une erreur lors du getAllQuestions"
-    //      })
-    //     })
-    // },
     getMyQuestions(req, res) {
         const { id } = req.params
         Question.findMany({
@@ -103,7 +87,7 @@ export default {
     },
     async updateQuestion(req, res) {
         const { id } = req.params;
-        const { question, answer2, answer3, answer4, goodAnswer } = req.body;
+        const { question } = req.body;
         
         try {
             const updatedQuestion = await Question.update({
@@ -112,20 +96,11 @@ export default {
                 },
                 data: {
                     question: question,
-                    goodAnswer: goodAnswer,
-                    answer: {
-                        connect: [
-                            { id: goodAnswer },
-                            { id: answer2 },
-                            { id: answer3 },
-                            { id: answer4 },
-                        ],
-                    },
                 },
             });
             
             res.status(200).send({
-                message: "Question mis à jour",
+                message: "Question mise à jour",
                 data: updatedQuestion,
             });
         } catch (error) {

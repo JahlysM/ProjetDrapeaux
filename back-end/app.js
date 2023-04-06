@@ -7,6 +7,7 @@ import loginRoutes from './routes/login.js';
 import quizRoutes from './routes/quiz.js';
 import questionRoutes from './routes/question.js';
 import flagsRoutes from './routes/flags.js';
+import scoreRoute from './routes/score.js';
 import path from 'path';
 import { join } from 'path';
 import { fileURLToPath } from 'url';
@@ -40,6 +41,7 @@ app.use('/login', loginRoutes);
 app.use('/quiz', quizRoutes);
 app.use('/question', questionRoutes);
 app.use('/flags', flagsRoutes);
+app.use('/score', scoreRoute);
 
 
 app.listen(process.env.SERVER_PORT, () => {

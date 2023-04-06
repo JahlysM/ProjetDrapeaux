@@ -61,21 +61,26 @@ const QuizPlay = () => {
     );
   }
 
-  const pushScore = () => {
-    let answer = goodAnswer.length + badAnswer.length;
-    if (answer === questions.length) {
-      console.log("tout répondu");
-      console.log(goodAnswer.length);
-    } else {
-      console.log("il vous reste " + (questions.length - answer) + " questions à répondre");
+  const createScore = async () => {
+    const answer = goodAnswer.length + badAnswer.length;
+    const maxScore = questions.length;
+    const score = goodAnswer.length;
+    if (answer === maxScore) {
+      try {
+        console.log("dedans");
+        await axios.post("http://localhost:9000/score/" + authorId + "/" + quizId, {
+          score,
+          maxScore,
+        });
+        console.log("score enregistré");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
+  
 
   const imgUrl = "http://localhost:9000/assets/img/flags/";
-
-  // const handleAnswer = (index) => {
-  //   if(2=2) console.log("oui");
-  // }
 
   return (
     <div>
@@ -85,7 +90,7 @@ const QuizPlay = () => {
             <ul key={index}>
                 <li>{question.id}</li>
                 <li>La question: {question.question}</li>
-                <li> bon id: {question.goodAnswer}</li>
+                <li>bon id: {question.goodAnswer}</li>
                 <ul>
                   {question.answer.map((option, index) =>
                     <li key={index} onClick={() => questionValidation(option.id, question.goodAnswer, question.id, question)}><img src= {imgUrl + option.flag} alt={option.name}/>
@@ -95,10 +100,9 @@ const QuizPlay = () => {
             </ul>
             )}
         </ul>
-        <button onClick={() => pushScore()}>Valider mes choix</button>
+        <button onClick={() => createScore()}>Valider mes choix</button>
     </div>
 );
 };
 
 export default QuizPlay;
-// onClick={() => quizValidation()}

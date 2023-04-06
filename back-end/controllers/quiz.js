@@ -18,20 +18,35 @@ export default {
     //     })
     // },
     findAllQuiz(req, res) {
+        const { id } = req.params;
         Quiz.findMany({
-            where: {
-                isOnline: true
-            }
+          where: {
+            isOnline: true,
+          },
+          include: {
+            quizScore: {
+              take: 1,
+              where: {
+                userId: id,
+              },
+            },
+          },
         })
-        .then((data) => {
-         res.status(200).send(data)
-        })
-        .catch((error) => {
-         res.status(500).send({
-             message: error.message || "une erreur lors du findAllQuiz"
-         })
-        })
-    },
+          .then((data) => {
+            const quizWithScore = data.map((quiz) => ({
+              ...quiz,
+              score: quiz.quizScore.length > 0 ? quiz.quizScore[0].score : null,
+              maxScore: quiz.quizScore.length > 0 ? quiz.quizScore[0].maxScore : null,
+            }));
+            res.status(200).send(quizWithScore);
+          })
+          .catch((error) => {
+            res.status(500).send({
+              message: error.message || "une erreur lors du findAllQuiz",
+            });
+          });
+      },
+      
     findMyQuiz(req, res) {
         const { id } = req.params
         Quiz.findMany({
