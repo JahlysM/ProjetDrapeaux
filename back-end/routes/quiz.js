@@ -1,7 +1,7 @@
-import express from "express";
+import express from 'express';
 const router = express.Router();
 
-import quizController from "../controllers/quiz.js";
+import quizController from '../controllers/quiz.js';
 
 // utilisé 100%
 router.get('/myQuizes/:id', quizController.findMyQuiz);

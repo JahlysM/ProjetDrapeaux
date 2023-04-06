@@ -26,5 +26,30 @@
   "prisma": {
     "schema": "db/schema.prisma",
     "seed": "node db/seed.js"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "jsxBracketSameLine": true,
+    "overrides": [
+      {
+        "files": "*.scss",
+        "options": {
+          "parser": "scss",
+          "tabWidth": 4
+        }
+      },
+      {
+        "files": "*.cjs",
+        "options": {
+          "parser": "babel",
+          "tabWidth": 2
+        }
+      }
+    ]
+  },
+  "devDependencies": {
+    "prettier": "^2.8.7"
   }
 }

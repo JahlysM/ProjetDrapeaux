@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { decodeToken } from 'react-jwt';
+import React, { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { decodeToken } from "react-jwt";
 
 const Navigation = () => {
   const [name, setName] = useState("");
@@ -25,41 +25,61 @@ const Navigation = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     return Navigate("/login");
-  }
+  };
 
   return (
-    <div className='navigation'>
+    <div className="navigation">
       <ul>
-        {name && !isAdmin &&
-          <NavLink to="/quiz" className={(nav) => (nav.isActive ? "nav-active" : "")}>
+        {name && !isAdmin && (
+          <NavLink
+            to="/quiz"
+            className={(nav) => (nav.isActive ? "nav-active" : "")}
+          >
             <li>Quiz</li>
           </NavLink>
-        }
-        {isAdmin &&
+        )}
+        {isAdmin && (
           <>
-            <NavLink to="/quiz" className={(nav) => (nav.isActive ? "nav-active" : "")}>
-            <li>Quiz</li>
+            <NavLink
+              to="/quiz"
+              className={(nav) => (nav.isActive ? "nav-active" : "")}
+            >
+              <li>Quiz</li>
             </NavLink>
-            <NavLink to="/myQuizes" className={(nav) => (nav.isActive ? "nav-active" : "")}>
-            <li>Mes quiz</li>
+            <NavLink
+              to="/myQuizes"
+              className={(nav) => (nav.isActive ? "nav-active" : "")}
+            >
+              <li>Mes quiz</li>
             </NavLink>
-            <NavLink to="/createQuiz" className={(nav) => (nav.isActive ? "nav-active" : "")}>
-            <li>Créer un quiz</li>
+            <NavLink
+              to="/createQuiz"
+              className={(nav) => (nav.isActive ? "nav-active" : "")}
+            >
+              <li>Créer un quiz</li>
             </NavLink>
           </>
-        }
-        {!name &&
+        )}
+        {!name && (
           <>
-            <NavLink to="/register" className={(nav) => (nav.isActive ? "nav-active" : "")}>
+            <NavLink
+              to="/register"
+              className={(nav) => (nav.isActive ? "nav-active" : "")}
+            >
               <li>S'inscrire</li>
             </NavLink>
-            <NavLink to="/login" className={(nav) => (nav.isActive ? "nav-active" : "")}>
+            <NavLink
+              to="/login"
+              className={(nav) => (nav.isActive ? "nav-active" : "")}
+            >
               <li>Se connecter</li>
             </NavLink>
           </>
-        }
+        )}
         {name && (
-            <li className='connexion'><button onClick={handleLogout}>déconnexion</button></li>
+          <li className="connexion">
+            <button onClick={handleLogout}>déconnexion</button>
+          </li>
         )}
       </ul>
     </div>

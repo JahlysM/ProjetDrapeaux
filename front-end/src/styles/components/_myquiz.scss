@@ -1,10 +1,64 @@
-.SeLogin {
-  height: 80vh;
+.ContainerQuiz {
+  height: 150vh;
+}
+.myQuizes {
+  height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
+  gap: 10px;
   width: 100%;
   place-items: center;
+  margin-top: 10px;
+
+  li {
+    border: 4px solid #2992dc;
+    background-color: #05121b;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+
+    button {
+      width: 40%;
+      font-size: 20px;
+      background-color: white;
+      border-radius: 5%;
+      cursor: pointer;
+      align-items: center;
+      text-align: center;
+
+      @media screen and (max-width: 650px) {
+        width: 50%;
+      }
+    }
+    a {
+      width: 40%;
+      font-size: 20px;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border: 1px solid black;
+      border-radius: 5%;
+      cursor: pointer;
+      @media screen and (max-width: 650px) {
+        width: 30%;
+      }
+
+      button {
+        width: 40%;
+        font-size: 20px;
+        border: none;
+        align-items: center;
+        text-align: center;
+      }
+    }
+  }
 
   form {
     border: 4px solid #2992dc;
@@ -12,6 +66,7 @@
     border-radius: 35px;
     background-color: #05121b;
     width: 30%;
+    height: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,7 +86,7 @@
       width: 70%;
     }
 
-    .yourEmail {
+    .yourName {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -45,15 +100,11 @@
         display: flex;
         justify-content: center;
         @media screen and (max-width: 1050px) {
-          // width:50%;
+          width: 50%;
         }
       }
-      div {
-        color: red;
-        width: 80%;
-      }
     }
-    .yourPassword {
+    .Difficulty {
       display: flex;
       flex-direction: column;
       label {
@@ -68,10 +119,9 @@
           color: green;
         }
       }
-      div {
-        background-color: red;
-        color: white;
-      }
     }
   }
+}
+.WhiteSpace {
+  padding-top: 10px;
 }

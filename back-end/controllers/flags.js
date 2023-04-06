@@ -1,24 +1,22 @@
-import pkg from "@prisma/client";
+import pkg from '@prisma/client';
 const { PrismaClient } = pkg;
 const prisma = new PrismaClient();
-const {answer: Answer} = prisma;
-
-
+const { answer: Answer } = prisma;
 
 export default {
-    getAllFlags(req, res) {
-        Answer.findMany({
-            include: {
-                continent: true
-            }
-        })
-        .then((data) => {
-         res.status(200).send(data)
-        })
-        .catch((error) => {
-         res.status(500).send({
-             message: error.message || "une erreur lors du getAllQuestions"
-         })
-        })
-    },
-}
+  getAllFlags(req, res) {
+    Answer.findMany({
+      include: {
+        continent: true,
+      },
+    })
+      .then((data) => {
+        res.status(200).send(data);
+      })
+      .catch((error) => {
+        res.status(500).send({
+          message: error.message || 'une erreur lors du getAllQuestions',
+        });
+      });
+  },
+};

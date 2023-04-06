@@ -1,6 +1,6 @@
-import express from "express";
+import express from 'express';
 const router = express.Router();
-import flagsController from "../controllers/flags.js";
+import flagsController from '../controllers/flags.js';
 
 router.get('/', flagsController.getAllFlags);
 

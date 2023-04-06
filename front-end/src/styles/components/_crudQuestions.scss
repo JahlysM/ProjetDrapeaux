@@ -1,0 +1,44 @@
+.QuestionCrud {
+  width: 40%;
+  white-space: pre-wrap;
+  height: 10vh;
+  @media screen and (max-width: 1050px) {
+    width: 60%;
+  }
+  @media screen and (max-width: 600px) {
+    width: 80%;
+  }
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    font-size: 20px;
+  }
+}
+
+.AnswerContainer {
+  height: 150vh;
+  margin-top: 20px;
+
+  .AnswerParent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    button {
+      cursor: pointer;
+    }
+
+    li {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+  .Answer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    justify-content: space-between;
+    gap: 0;
+    margin: 0;
+  }
+}
